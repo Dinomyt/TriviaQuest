@@ -12,7 +12,7 @@ import java.util.ArrayList;
 public interface TriviaQuestionsDAO {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(TriviaQuestions triviaQuestions);
-    @Query("SELECT * FROM " + TriviaQuestionsDatabase.TRIVIA_QUESTIONS_TABLE)
+    @Query("SELECT * FROM " + TriviaQuestDatabase.TRIVIA_QUESTIONS_TABLE)
     ArrayList<TriviaQuestions> getAllQuestions();
 
 }
