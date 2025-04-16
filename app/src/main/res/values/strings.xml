@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">TriviaQuest</string>
+    <string name="trivia_quest">Trivia Quest</string>
+    <string name="username">username</string>
+    <string name="password">password</string>
+    <string name="login">login</string>
 </resources>
