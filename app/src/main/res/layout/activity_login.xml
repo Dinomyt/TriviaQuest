@@ -59,7 +59,8 @@
         android:textSize="32sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/passwordLoginEditText" />
+        app:layout_constraintTop_toBottomOf="@+id/passwordLoginEditText"
+        android:background="@color/black"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
