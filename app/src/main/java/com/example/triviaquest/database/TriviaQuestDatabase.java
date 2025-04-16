@@ -3,40 +3,37 @@ package com.example.triviaquest.database;
 import android.content.Context;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
+import androidx.sqlite.db.SupportSQLiteDatabase;
 
-import com.example.triviaquest.MainActivity;
+import com.example.triviaquest.database.entities.TriviaQuestions;
 
-import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {}, version = 1, exportSchema = false)
-public abstract class TriviaQuestDatabase {
-    //Database name
-    private static final String DATABASE_NAME = "triviaQuestDatabase";
-    //Table name for trivia questions
-    public static final String TRIVIA_TABLE = "triviaTable";
-    //User table name
-    public static final String USER_TABLE = "userTable";
-    //TriviaQuestDatabase instance stored in ram
+@Database(entities = {TriviaQuestions.class}, version = 1, exportSchema = false)
+public abstract class TriviaQuestDatabase extends RoomDatabase {
+
+    private static final String DATABASE_NAME = "TriviaQuestion_database";
+
+    public static final String TRIVIA_QUESTIONS_TABLE = "triviaQuestionsTable";
+
     private static volatile TriviaQuestDatabase INSTANCE;
-    // Number of threads to use for database operations
     private static final int NUMBER_OF_THREADS = 4;
 
-    // ExecutorService with a fixed thread pool to handle database write operations
-    // This allows database tasks to run asynchronously without blocking the main thread
-    static final ExecutorService databaseWriteExecutor = Executors.newFixedThreadPool(NUMBER_OF_THREADS);
+    static final ExecutorService databaseWriteExecutor = Executors.newFixedThreadPool(NUMBER_OF_THREADS)
 
     static TriviaQuestDatabase getDatabase(final Context context) {
-        if (INSTANCE == null) {
+        if(INSTANCE == null) {
             synchronized (TriviaQuestDatabase.class) {
-                if (INSTANCE == null) {
-                    INSTANCE = Room.databaseBuilder(
-                            context.getApplicationContext(),
-                            TriviaQuestDatabase.class, DATABASE_NAME)
+                if(INSTANCE == null) {
+                    INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
+                            TriviaQuestDatabase.class,
+                            DATABASE_NAME
+                            )
                             .fallbackToDestructiveMigration()
                             .addCallback(addDefaultValues)
                             .build();
@@ -50,22 +47,10 @@ public abstract class TriviaQuestDatabase {
         @Override
         public void onCreate(@NonNull SupportSQLiteDatabase db) {
             super.onCreate(db);
-            Log.i(MainActivity.TAG, "Database created");
-            // Add default values to the database if needed
-            // This is where you can insert initial data into the database
-            //databaseWriteExecutor.execute(() -> {
-            //                UserDAO dao = INSTANCE.userDAO();
-            //                dao.deleteAll();
-            //                User admin = new User("admin1", "admin1");
-            //                admin.setAdmin(true);
-            //                dao.insert(admin);
-            //                User testUser1 = new User("testuser1", "testuser1");
-            //                dao.insert(testUser1);
-            // });
+            Log.i("TRIVIAQUESTIONSDATABASE", "DATABASE CREATED");
+            //TODO: add databaseWriteExecutor.execute(() -> {...}
         }
     };
 
-    public abstract TriviaDAO triviaDAO();
-    public abstract UserDAO userDAO();
-
+    public abstract TriviaQuestionsDAO TriviaQuestionsDAO();
 }

@@ -5,7 +5,6 @@ import android.util.Log;
 
 import com.example.triviaquest.database.entities.TriviaQuestions;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
@@ -18,13 +17,13 @@ public class TriviaQuestionsRepository {
     private ArrayList<TriviaQuestions> allQuestions;
 
     public TriviaQuestionsRepository(Application application) {
-        TriviaQuestionsDatabase db = TriviaQuestionsDatabase.getDatabase(application);
+        TriviaQuestDatabase db = TriviaQuestDatabase.getDatabase(application);
         this.triviaQuestionsDAO = db.TriviaQuestionsDAO();
         this.allQuestions = this.triviaQuestionsDAO.getAllQuestions();
     }
 
     public ArrayList<TriviaQuestions> getAllQuestions() {
-        Future<ArrayList<TriviaQuestions>> future = TriviaQuestionsDatabase.databaseWriteExecutor.submit(
+        Future<ArrayList<TriviaQuestions>> future = TriviaQuestDatabase.databaseWriteExecutor.submit(
                 new Callable<ArrayList<TriviaQuestions>>() {
                     @Override
                     public ArrayList<TriviaQuestions> call() throws Exception {
@@ -41,7 +40,7 @@ public class TriviaQuestionsRepository {
     }
 
     public void insertTriviaQuestions(TriviaQuestions triviaQuestions) {
-        TriviaQuestionsDatabase.databaseWriteExecutor.execute(() ->
+        TriviaQuestDatabase.databaseWriteExecutor.execute(() ->
         {
             triviaQuestionsDAO.insert(triviaQuestions);
         });

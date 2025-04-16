@@ -3,11 +3,11 @@ package com.example.triviaquest.database.entities;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-import com.example.triviaquest.database.TriviaQuestionsDatabase;
+import com.example.triviaquest.database.TriviaQuestDatabase;
 
 import java.util.Objects;
 
-@Entity(tableName = TriviaQuestionsDatabase.TRIVIA_QUESTIONS_TABLE)
+@Entity(tableName = TriviaQuestDatabase.TRIVIA_QUESTIONS_TABLE)
 public class TriviaQuestions {
 
     @PrimaryKey(autoGenerate = true)
