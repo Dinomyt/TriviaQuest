@@ -7,6 +7,7 @@ import com.example.triviaquest.databinding.ActivityMainBinding;
 public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
+    public static final String TAG = "TRIVIAQUEST_GYMLOG";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
