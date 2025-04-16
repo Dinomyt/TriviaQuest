@@ -8,12 +8,174 @@
     tools:context=".MainActivity">
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/LogDisplayTextView"
+        android:layout_width="390dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="16dip"
+        android:padding="8dp"
         android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.523"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+
+        />
+
+    <TextView
+        android:id="@+id/QuestionLabelTextView"
+        android:layout_width="132dp"
+        android:layout_height="43dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/question"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/LogDisplayTextView" />
+
+    <EditText
+        android:id="@+id/QuestionInputEditText"
+        android:layout_width="227dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="8dp"
+        android:inputType="textAutoComplete"
+        android:padding="8dp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/QuestionLabelTextView"
+        app:layout_constraintStart_toEndOf="@+id/QuestionLabelTextView"
+        android:hint="@string/question"
+        />
+
+    <TextView
+        android:id="@+id/Option1LabelTextView"
+        android:layout_width="30dp"
+        android:layout_height="38dp"
+        android:layout_marginStart="55dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/a"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/QuestionInputEditText" />
+
+    <EditText
+        android:id="@+id/Option1InputEditText"
+        android:layout_width="227dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="8dp"
+        android:inputType="text"
+        android:padding="8dp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/Option1LabelTextView"
+        app:layout_constraintStart_toEndOf="@+id/Option1LabelTextView"
+        android:hint="@string/first_option"
+        />
+
+    <TextView
+        android:id="@+id/Option2LabelTextView"
+        android:layout_width="30dp"
+        android:layout_height="43dp"
+        android:layout_marginStart="55dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/b"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Option1LabelTextView" />
+
+    <EditText
+        android:id="@+id/Option2InputEditText"
+        android:layout_width="227dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="8dp"
+        android:inputType="text"
+        android:padding="8dp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/Option2LabelTextView"
+        app:layout_constraintStart_toEndOf="@+id/Option2LabelTextView"
+        android:hint="@string/second_option"
+        />
+
+    <TextView
+        android:id="@+id/Option3LabelTextView"
+        android:layout_width="30dp"
+        android:layout_height="43dp"
+        android:layout_marginStart="55dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/c"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Option2LabelTextView" />
+
+    <EditText
+        android:id="@+id/Option3InputEditText"
+        android:layout_width="227dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="8dp"
+        android:inputType="text"
+        android:padding="8dp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/Option3LabelTextView"
+        app:layout_constraintStart_toEndOf="@+id/Option3LabelTextView"
+        android:hint="@string/third_option"
+        />
+
+    <TextView
+        android:id="@+id/Option4LabelTextView"
+        android:layout_width="30dp"
+        android:layout_height="43dp"
+        android:layout_marginStart="55dp"
+        android:layout_marginTop="4dp"
+        android:text="@string/d"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Option3LabelTextView" />
+
+    <EditText
+        android:id="@+id/Option4InputEditText"
+        android:layout_width="227dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="8dp"
+        android:inputType="text"
+        android:padding="8dp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/Option4LabelTextView"
+        app:layout_constraintStart_toEndOf="@+id/Option4LabelTextView"
+        android:hint="@string/fourth_option"
+        />
+
+    <CheckBox
+        android:id="@+id/option_1_checkbox"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/Option1InputEditText"
+        app:layout_constraintStart_toEndOf="@+id/Option1InputEditText"
+        />
+
+    <CheckBox
+        android:id="@+id/option_2_checkbox"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/Option2InputEditText"
+        app:layout_constraintStart_toEndOf="@+id/Option2InputEditText"
+        />
+
+    <CheckBox
+        android:id="@+id/option_3_checkbox"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/Option3InputEditText"
+        app:layout_constraintStart_toEndOf="@+id/Option3InputEditText"
+        />
+
+    <CheckBox
+        android:id="@+id/option_4_checkbox"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/Option4InputEditText"
+        app:layout_constraintStart_toEndOf="@+id/Option4InputEditText"
+        />
+
+    <Button
+        android:layout_width="200dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="32dp"
+        android:gravity="center"
+        android:text="@string/check_answer"
+        app:layout_constraintTop_toBottomOf="@+id/Option4InputEditText"
+        tools:layout_editor_absoluteX="105dp" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
