@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">TriviaQuest</string>
-
     <string name="next">Next</string>
     <string name="true_text">True</string>
     <string name="false_text">False</string>
@@ -17,4 +16,8 @@
     <string name="c">C.</string>
     <string name="d">D.</string>
     <string name="submit">Submit</string>
+    <string name="trivia_quest">Trivia Quest</string>
+    <string name="username">username</string>
+    <string name="password">password</string>
+    <string name="login">login</string>
 </resources>
