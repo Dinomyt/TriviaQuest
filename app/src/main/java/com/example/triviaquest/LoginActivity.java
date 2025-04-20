@@ -9,7 +9,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.LiveData;
 
-import com.example.triviaquest.database.GymLogRepository;
+import com.example.triviaquest.database.TriviaQuestionsRepository;
 import com.example.triviaquest.database.entities.User;
 import com.example.triviaquest.databinding.ActivityLoginBinding;
 
@@ -17,7 +17,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private ActivityLoginBinding binding;
 
-    private TriviaQuestRepository repository;
+    private TriviaQuestionsRepository repository;
 
 
     @Override
@@ -26,7 +26,7 @@ public class LoginActivity extends AppCompatActivity {
         binding = ActivityLoginBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        repository = TriviaQuestRepository.getRepository(getApplication());
+        repository = TriviaQuestionsRepository.getRepository(getApplication());
 
         binding.loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
