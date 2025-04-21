@@ -79,6 +79,31 @@ public class TriviaQuestionsRepository {
         });
     }
 
+
+     /**
+      * User methods
+      */
+     public User findUserByUsernameSync(String username) {
+         Future<User> future = TriviaQuestDatabase.databaseWriteExecutor.submit(
+                 new Callable<User>() {
+                     @Override
+                     public User call() throws Exception {
+                         return userDAO.getUserByUsernameSync(username);
+                     }
+                 }
+         );
+         try {
+             return future.get();
+         } catch (InterruptedException | ExecutionException e) {
+             Log.e(MainActivity.TAG, "Problem getting user by username", e);
+         }
+         return null;
+     }
+    public void insertUser(User user) {
+        TriviaQuestDatabase.databaseWriteExecutor.execute(() -> {
+            userDAO.insert(user);
+        });
+    }
     public LiveData<User> getUserByUsername(String username) {
         return userDAO.getUserByUsername(username);
     }
@@ -87,7 +112,7 @@ public class TriviaQuestionsRepository {
     }
 
     public LiveData<List<TriviaQuestions>> getAllLogsByUserIdLiveData(int loggedInUserId) {
-        return TriviaQuestionsDAO.getAllRecordsByUserIdLiveData(loggedInUserId);
+        return triviaQuestionsDAO.getAllRecordsByUserIdLiveData(loggedInUserId);
     }
 
     @Deprecated
@@ -96,7 +121,7 @@ public class TriviaQuestionsRepository {
                 new Callable<ArrayList<TriviaQuestions>>() {
                     @Override
                     public ArrayList<TriviaQuestions> call() throws Exception {
-                        return (ArrayList<TriviaQuestions>) TriviaQuestionsDAO.getAllRecordsByUserId(loggedInUserId);
+                        return (ArrayList<TriviaQuestions>) triviaQuestionsDAO.getAllRecordsByUserId(loggedInUserId);
                     }
                 });
         try {

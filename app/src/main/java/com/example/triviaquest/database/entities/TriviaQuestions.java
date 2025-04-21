@@ -48,6 +48,14 @@ public class TriviaQuestions {
         this.id = id;
     }
 
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
     public String getTriviaQuestion() {
         return triviaQuestion;
     }
