@@ -11,8 +11,10 @@ import java.util.Objects;
 public class TriviaQuestions {
 
     @PrimaryKey(autoGenerate = true)
-    private String triviaQuestion;
+    private int id;
 
+    private int userId;
+    private String triviaQuestion;
     private String triviaQuestionOptionA;
     private String triviaQuestionOptionB;
     private String triviaQuestionOptionC;
@@ -36,6 +38,22 @@ public class TriviaQuestions {
     @Override
     public int hashCode() {
         return Objects.hash(triviaQuestion, triviaQuestionOptionA, triviaQuestionOptionB, triviaQuestionOptionC, triviaQuestionOptionD);
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     public String getTriviaQuestion() {

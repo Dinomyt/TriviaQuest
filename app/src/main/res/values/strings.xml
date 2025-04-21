@@ -19,5 +19,8 @@
     <string name="trivia_quest">Trivia Quest</string>
     <string name="username">username</string>
     <string name="password">password</string>
-    <string name="login">login</string>
+    <string name="login">Login</string>
+    <string name="registration_menu_text">Registration Menu\n\n Please enter a username and password to sign up:</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="register">Register</string>
 </resources>
