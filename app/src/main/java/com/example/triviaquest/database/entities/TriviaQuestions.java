@@ -11,41 +11,40 @@ import java.util.Objects;
 public class TriviaQuestions {
 
     @PrimaryKey(autoGenerate = true)
-    private int id;
-
+    private int questionId;
     private int userId;
-    private String triviaQuestion;
-    private String triviaQuestionOptionA;
-    private String triviaQuestionOptionB;
-    private String triviaQuestionOptionC;
-    private String triviaQuestionOptionD;
+    private String questionText;
+    private String optionA;
+    private String optionB;
+    private String optionC;
+    private String optionD;
 
-    public TriviaQuestions(String triviaQuestion, String triviaQuestionOptionA, String triviaQuestionOptionB, String triviaQuestionOptionC, String triviaQuestionOptionD) {
-        this.triviaQuestion = triviaQuestion;
-        this.triviaQuestionOptionA = triviaQuestionOptionA;
-        this.triviaQuestionOptionB = triviaQuestionOptionB;
-        this.triviaQuestionOptionC = triviaQuestionOptionC;
-        this.triviaQuestionOptionD = triviaQuestionOptionD;
+    public TriviaQuestions(String questionText, String optionA, String optionB, String optionC, String optionD) {
+        this.questionText = questionText;
+        this.optionA = optionA;
+        this.optionB = optionB;
+        this.optionC = optionC;
+        this.optionD = optionD;
     }
 
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         TriviaQuestions that = (TriviaQuestions) o;
-        return Objects.equals(triviaQuestion, that.triviaQuestion) && Objects.equals(triviaQuestionOptionA, that.triviaQuestionOptionA) && Objects.equals(triviaQuestionOptionB, that.triviaQuestionOptionB) && Objects.equals(triviaQuestionOptionC, that.triviaQuestionOptionC) && Objects.equals(triviaQuestionOptionD, that.triviaQuestionOptionD);
+        return Objects.equals(questionText, that.questionText) && Objects.equals(optionA, that.optionA) && Objects.equals(optionB, that.optionB) && Objects.equals(optionC, that.optionC) && Objects.equals(optionD, that.optionD);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(triviaQuestion, triviaQuestionOptionA, triviaQuestionOptionB, triviaQuestionOptionC, triviaQuestionOptionD);
+        return Objects.hash(questionText, optionA, optionB, optionC, optionD);
     }
 
-    public int getId() {
-        return id;
+    public int getQuestionId() {
+        return questionId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setQuestionId(int questionId) {
+        this.questionId = questionId;
     }
 
     public int getUserId() {
@@ -56,43 +55,43 @@ public class TriviaQuestions {
         this.userId = userId;
     }
 
-    public String getTriviaQuestion() {
-        return triviaQuestion;
+    public String getQuestionText() {
+        return questionText;
     }
 
-    public void setTriviaQuestion(String triviaQuestion) {
-        this.triviaQuestion = triviaQuestion;
+    public void setQuestionText(String questionText) {
+        this.questionText = questionText;
     }
 
-    public String getTriviaQuestionOptionA() {
-        return triviaQuestionOptionA;
+    public String getOptionA() {
+        return optionA;
     }
 
-    public void setTriviaQuestionOptionA(String triviaQuestionOptionA) {
-        this.triviaQuestionOptionA = triviaQuestionOptionA;
+    public void setOptionA(String optionA) {
+        this.optionA = optionA;
     }
 
-    public String getTriviaQuestionOptionB() {
-        return triviaQuestionOptionB;
+    public String getOptionB() {
+        return optionB;
     }
 
-    public void setTriviaQuestionOptionB(String triviaQuestionOptionB) {
-        this.triviaQuestionOptionB = triviaQuestionOptionB;
+    public void setOptionB(String optionB) {
+        this.optionB = optionB;
     }
 
-    public String getTriviaQuestionOptionC() {
-        return triviaQuestionOptionC;
+    public String getOptionC() {
+        return optionC;
     }
 
-    public void setTriviaQuestionOptionC(String triviaQuestionOptionC) {
-        this.triviaQuestionOptionC = triviaQuestionOptionC;
+    public void setOptionC(String optionC) {
+        this.optionC = optionC;
     }
 
-    public String getTriviaQuestionOptionD() {
-        return triviaQuestionOptionD;
+    public String getOptionD() {
+        return optionD;
     }
 
-    public void setTriviaQuestionOptionD(String triviaQuestionOptionD) {
-        this.triviaQuestionOptionD = triviaQuestionOptionD;
+    public void setOptionD(String optionD) {
+        this.optionD = optionD;
     }
 }
