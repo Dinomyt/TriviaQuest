@@ -14,11 +14,11 @@ import java.util.List;
 @Dao
 public interface TriviaQuestionsDAO {
     @Query("SELECT * FROM " + TriviaQuestDatabase.TRIVIA_QUESTIONS_TABLE +
-            " WHERE userId = :loggedInUserId  ORDER BY id DESC")
+            " WHERE userId = :loggedInUserId  ORDER BY questionId DESC")
     List<TriviaQuestions> getAllRecordsByUserId(int loggedInUserId);
 
     @Query("SELECT * FROM " + TriviaQuestDatabase.TRIVIA_QUESTIONS_TABLE +
-            " WHERE userId = :loggedInUserId  ORDER BY id DESC")
+            " WHERE userId = :loggedInUserId  ORDER BY questionId DESC")
     LiveData<List<TriviaQuestions>> getAllRecordsByUserIdLiveData(int loggedInUserId);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
