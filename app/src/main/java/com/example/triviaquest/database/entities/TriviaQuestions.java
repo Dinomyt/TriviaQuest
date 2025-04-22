@@ -1,13 +1,23 @@
 package com.example.triviaquest.database.entities;
 
 import androidx.room.Entity;
+import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
+import com.example.triviaquest.database.CategoryDAO;
 import com.example.triviaquest.database.TriviaQuestDatabase;
 
 import java.util.Objects;
 
-@Entity(tableName = TriviaQuestDatabase.TRIVIA_QUESTIONS_TABLE)
+@Entity(
+        tableName = TriviaQuestDatabase.TRIVIA_QUESTIONS_TABLE,
+        foreignKeys = @ForeignKey(
+                entity = Category.class,
+                parentColumns = "id",
+                childColumns = "categoryId",
+                onDelete = ForeignKey.CASCADE
+        )
+)
 public class TriviaQuestions {
 
     @PrimaryKey(autoGenerate = true)
@@ -19,12 +29,15 @@ public class TriviaQuestions {
     private String optionC;
     private String optionD;
 
-    public TriviaQuestions(String questionText, String optionA, String optionB, String optionC, String optionD) {
+    private int categoryId;
+
+    public TriviaQuestions(String questionText, String optionA, String optionB, String optionC, String optionD, int categoryId) {
         this.questionText = questionText;
         this.optionA = optionA;
         this.optionB = optionB;
         this.optionC = optionC;
         this.optionD = optionD;
+        this.categoryId = categoryId;
     }
 
     @Override
@@ -93,5 +106,13 @@ public class TriviaQuestions {
 
     public void setOptionD(String optionD) {
         this.optionD = optionD;
+    }
+
+    public int getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(int categoryId) {
+        this.categoryId = categoryId;
     }
 }
