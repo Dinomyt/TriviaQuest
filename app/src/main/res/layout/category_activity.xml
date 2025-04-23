@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+        android:id="@+id/categoryTitleTextView"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_margin="16dp"
+        android:layout_marginBottom="24dp"
+        android:gravity="center"
+        android:text="@string/categories"
+        android:textSize="40sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/categoryButtonA"
+        android:layout_width="300dp"
+        android:layout_height="105dp"
+        android:layout_marginTop="28dp"
+        android:gravity="center"
+        android:text="@string/geography"
+        android:textSize="32sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/categoryTitleTextView" />
+
+    <Button
+        android:id="@+id/categoryButtonB"
+        android:layout_width="300dp"
+        android:layout_height="105dp"
+        android:layout_marginTop="4dp"
+        android:gravity="center"
+        android:text="@string/literature"
+        android:textSize="32sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/categoryButtonA" />
+
+    <Button
+        android:id="@+id/categoryButtonC"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="250dp"
+        android:gravity="center"
+        android:text="@string/go_back"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/categoryButtonB" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

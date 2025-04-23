@@ -56,7 +56,7 @@ public class LoginActivity extends AppCompatActivity {
             if (user != null) {
                 String password = binding.passwordLoginEditText.getText().toString();
                 if (password.equals(user.getPassword())) {
-                    startActivity(MainActivity.mainActivityIntentFactory(getApplicationContext(), user.getId()));
+                    startActivity(DashboardActivity.dashboardIntentFactory(getApplicationContext(), user.getUsername()));
                 } else {
                     toastMaker("Invalid Password");
                     binding.passwordLoginEditText.setSelection(0);

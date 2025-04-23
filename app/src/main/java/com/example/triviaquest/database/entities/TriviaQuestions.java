@@ -13,7 +13,7 @@ import java.util.Objects;
         tableName = TriviaQuestDatabase.TRIVIA_QUESTIONS_TABLE,
         foreignKeys = @ForeignKey(
                 entity = Category.class,
-                parentColumns = "id",
+                parentColumns = "categoryId",
                 childColumns = "categoryId",
                 onDelete = ForeignKey.CASCADE
         )
