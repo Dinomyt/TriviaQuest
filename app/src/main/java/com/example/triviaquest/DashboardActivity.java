@@ -21,6 +21,12 @@ public class DashboardActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dashboard_activity);
 
+        findViewById(R.id.leaderboardButton)
+                .setOnClickListener(v ->
+                        startActivity(new Intent(this, LeaderboardActivity.class)));
+
+        String username = getIntent().getStringExtra(USERNAME_KEY);
+
         int userId = getSharedPreferences("TriviaPrefs", MODE_PRIVATE).getInt("userId", -1);
         TextView welcomeTextView = findViewById(R.id.dashWelcomeTextView);
 
@@ -45,11 +51,14 @@ public class DashboardActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        welcomeTextView.setText(String.format("%s%s!", getString(R.string.DashboardActivityClassWelcome), username));
+
 
     }
 
-    public static Intent dashboardIntentFactory(Context context) {
+    public static Intent dashboardIntentFactory(Context context, String username) {
         Intent intent = new Intent(context, DashboardActivity.class);
+        intent.putExtra(USERNAME_KEY, username);
         return intent;
     }
 
