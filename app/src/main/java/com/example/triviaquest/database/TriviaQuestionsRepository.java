@@ -111,6 +111,10 @@ public class TriviaQuestionsRepository {
         return userDAO.getUserByUserId(userId);
     }
 
+    public LiveData<List<User>> getLeaderboard() {
+        return userDAO.getUsersByScore();
+    }
+
     public LiveData<List<TriviaQuestions>> getAllLogsByUserIdLiveData(int loggedInUserId) {
         return triviaQuestionsDAO.getAllRecordsByUserIdLiveData(loggedInUserId);
     }

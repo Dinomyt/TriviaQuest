@@ -14,6 +14,7 @@ public class User {
     private String username;
     private String password;
     private boolean isAdmin;
+    private int score;
 
     /**
      * Constructor for creating a new user with a username and password.
@@ -22,6 +23,7 @@ public class User {
         this.username = username;
         this.password = password;
         this.isAdmin = false;
+        this.score = 0;
     }
 
     /**
@@ -71,5 +73,13 @@ public class User {
 
     public void setAdmin(boolean admin) {
         isAdmin = admin;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
     }
 }

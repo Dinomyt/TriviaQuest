@@ -17,7 +17,7 @@ import com.example.triviaquest.database.entities.User;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {TriviaQuestions.class, User.class, Category.class}, version = 2, exportSchema = false)
+@Database(entities = {TriviaQuestions.class, User.class, Category.class}, version = 3, exportSchema = false)
 public abstract class TriviaQuestDatabase extends RoomDatabase {
 
     private static final String DATABASE_NAME = "TriviaQuestion_database";

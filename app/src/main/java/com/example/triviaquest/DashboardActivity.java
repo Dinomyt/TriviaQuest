@@ -16,10 +16,16 @@ public class DashboardActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dashboard_activity);
 
+        findViewById(R.id.leaderboardButton)
+                .setOnClickListener(v ->
+                        startActivity(new Intent(this, LeaderboardActivity.class)));
+
         String username = getIntent().getStringExtra(USERNAME_KEY);
 
         TextView welcomeTextView = findViewById(R.id.dashWelcomeTextView);
         welcomeTextView.setText(String.format("%s%s!", getString(R.string.DashboardActivityClassWelcome), username));
+
+
     }
 
     public static Intent dashboardIntentFactory(Context context, String username) {

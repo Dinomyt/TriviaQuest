@@ -32,4 +32,6 @@
     <string name="ready_to_play">Ready to play?</string>
     <string name="logout">Logout</string>
     <string name="DashboardActivityClassWelcome">"Welcome, "</string>
+    <string name="leaderboard">Leaderboard</string>
+    <string name="leaderboardButton">Leaderboard</string>
 </resources>
