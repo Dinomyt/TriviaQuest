@@ -31,7 +31,7 @@ public abstract class TriviaQuestDatabase extends RoomDatabase {
 
     static final ExecutorService databaseWriteExecutor = Executors.newFixedThreadPool(NUMBER_OF_THREADS);
 
-    static TriviaQuestDatabase getDatabase(final Context context) {
+    public static TriviaQuestDatabase getDatabase(final Context context) {
         if(INSTANCE == null) {
             synchronized (TriviaQuestDatabase.class) {
                 if(INSTANCE == null) {
