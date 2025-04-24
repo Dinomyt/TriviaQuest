@@ -40,7 +40,7 @@ public class DashboardActivity extends AppCompatActivity {
                 }
             });
         } else {
-            welcomeTextView.setText("Welcome!");
+            welcomeTextView.setText(String.format("%s%s!", getString(R.string.DashboardActivityClassWelcome), username));
         }
 
         Button readyButton = findViewById(R.id.readyTextView);
@@ -51,8 +51,16 @@ public class DashboardActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        welcomeTextView.setText(String.format("%s%s!", getString(R.string.DashboardActivityClassWelcome), username));
 
+        Button logoutButton = findViewById(R.id.logoutTextView);
+        logoutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(DashboardActivity.this, LoginActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+            }
+        });
 
     }
 
