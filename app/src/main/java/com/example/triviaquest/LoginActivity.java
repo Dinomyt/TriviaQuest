@@ -60,7 +60,7 @@ public class LoginActivity extends AppCompatActivity {
                             .edit()
                             .putInt("userId", user.getId())
                             .apply();
-                    startActivity(DashboardActivity.dashboardIntentFactory(getApplicationContext()));
+                    startActivity(DashboardActivity.dashboardIntentFactory(getApplicationContext(), username));
                 } else {
                     toastMaker("Invalid Password");
                     binding.passwordLoginEditText.setSelection(0);
