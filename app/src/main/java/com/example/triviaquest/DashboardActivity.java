@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.triviaquest.database.TriviaQuestDatabase;
 import com.example.triviaquest.database.entities.Category;
 
 public class DashboardActivity extends AppCompatActivity {
@@ -20,10 +21,21 @@ public class DashboardActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dashboard_activity);
 
-        String username = getIntent().getStringExtra(USERNAME_KEY);
-
+        int userId = getSharedPreferences("TriviaPrefs", MODE_PRIVATE).getInt("userId", -1);
         TextView welcomeTextView = findViewById(R.id.dashWelcomeTextView);
-        welcomeTextView.setText(String.format("%s%s!", getString(R.string.DashboardActivityClassWelcome), username));
+
+        if (userId != -1) {
+            TriviaQuestDatabase db = TriviaQuestDatabase.getDatabase(this);
+            db.userDAO().getUserByUserId(userId).observe(this, user -> {
+                if (user != null) {
+                    welcomeTextView.setText(String.format("%s%s!", getString(R.string.DashboardActivityClassWelcome), user.getUsername()));
+                } else {
+                    welcomeTextView.setText("Welcome!");
+                }
+            });
+        } else {
+            welcomeTextView.setText("Welcome!");
+        }
 
         Button readyButton = findViewById(R.id.readyTextView);
         readyButton.setOnClickListener(new View.OnClickListener() {
@@ -36,9 +48,8 @@ public class DashboardActivity extends AppCompatActivity {
 
     }
 
-    public static Intent dashboardIntentFactory(Context context, String username) {
+    public static Intent dashboardIntentFactory(Context context) {
         Intent intent = new Intent(context, DashboardActivity.class);
-        intent.putExtra(USERNAME_KEY, username);
         return intent;
     }
 

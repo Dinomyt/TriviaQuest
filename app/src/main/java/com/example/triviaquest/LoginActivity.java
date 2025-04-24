@@ -56,7 +56,11 @@ public class LoginActivity extends AppCompatActivity {
             if (user != null) {
                 String password = binding.passwordLoginEditText.getText().toString();
                 if (password.equals(user.getPassword())) {
-                    startActivity(DashboardActivity.dashboardIntentFactory(getApplicationContext(), user.getUsername()));
+                    getSharedPreferences("TriviaPrefs", MODE_PRIVATE)
+                            .edit()
+                            .putInt("userId", user.getId())
+                            .apply();
+                    startActivity(DashboardActivity.dashboardIntentFactory(getApplicationContext()));
                 } else {
                     toastMaker("Invalid Password");
                     binding.passwordLoginEditText.setSelection(0);
