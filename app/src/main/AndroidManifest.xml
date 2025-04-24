@@ -23,6 +23,7 @@
         </activity>
         <activity android:name=".RegisterActivity" />
         <activity android:name=".DashboardActivity" />
+        <activity android:name=".CategoryActivity" />
         <activity android:name=".MainActivity" />
     </application>
 
