@@ -8,7 +8,7 @@
         android:id="@+id/dashWelcomeTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="100dp"
         android:gravity="center"
         android:text="@string/welcome"
         android:textSize="30sp"
@@ -21,7 +21,7 @@
         android:id="@+id/readyTextView"
         android:layout_width="250dp"
         android:layout_height="100dp"
-        android:layout_marginTop="204dp"
+        android:layout_marginTop="100dp"
         android:gravity="center"
         android:text="@string/ready_to_play"
         android:textSize="30sp"
@@ -34,23 +34,12 @@
         android:id="@+id/leaderboardButton"
         android:layout_width="250dp"
         android:layout_height="100dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="40dp"
         android:gravity="center"
         android:text="@string/leaderboardButton"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/readyTextView" />
-
-    <Button
-        android:id="@+id/logoutTextView"
-        android:layout_width="150dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="212dp"
-        android:text="@string/logout"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/readyTextView" />
 
