@@ -13,12 +13,15 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.triviaquest.database.CategoryDAO;
 import com.example.triviaquest.database.TriviaQuestDatabase;
+import com.example.triviaquest.database.TriviaQuestionsRepository;
 import com.example.triviaquest.database.entities.Category;
 import com.example.triviaquest.databinding.CategoryActivityBinding;
+import com.example.triviaquest.databinding.DashboardActivityBinding;
 import com.example.triviaquest.viewHolders.CategoryAdapter;
 
 import java.util.ArrayList;
@@ -27,7 +30,7 @@ import java.util.List;
 public class DashboardActivity extends AppCompatActivity {
 
     private CategoryAdapter adapter;
-    private CategoryActivityBinding binding;
+    private DashboardActivityBinding binding;
     private List<Category> recentCategories = new ArrayList<>();
     private CategoryDAO cDao;
     private static final String USERNAME_KEY = "USERNAME_KEY";
@@ -35,9 +38,7 @@ public class DashboardActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.dashboard_activity);
-
-        binding = CategoryActivityBinding.inflate(getLayoutInflater());
+        binding = DashboardActivityBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         invalidateOptionsMenu();
@@ -64,6 +65,19 @@ public class DashboardActivity extends AppCompatActivity {
             welcomeTextView.setText(String.format("%s%s!", getString(R.string.DashboardActivityClassWelcome), username));
         }
 
+        adapter = new CategoryAdapter(new ArrayList<>(), null);
+
+        binding.categoryRecyclerView.setAdapter(adapter);
+        binding.categoryRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        TriviaQuestionsRepository repository = TriviaQuestionsRepository.getRepository(getApplication());
+        repository.getTwoMostRecentCategories().observe(this, categories -> {
+            if (categories != null) {
+                adapter.updateList(categories);
+            }
+        });
+
+
         Button readyButton = findViewById(R.id.readyTextView);
         readyButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,11 +87,6 @@ public class DashboardActivity extends AppCompatActivity {
             }
         });
 
-    }
-
-    private void loadRecentCategories() {
-        List<Category> twoRecent = cDao.getTwoMostRecent();
-        star
     }
 
     @Override
