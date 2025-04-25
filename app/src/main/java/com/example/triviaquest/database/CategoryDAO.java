@@ -20,6 +20,9 @@ public interface CategoryDAO {
     @Query("SELECT * FROM category")
     LiveData<List<Category>> getAllCategories();
 
+    @Query("SELECT * FROM category ORDER BY categoryId DESC LIMIT 2")
+    LiveData<List<Category>> getTwoMostRecent();
+
     @Delete
     void delete(Category category);
 
