@@ -10,6 +10,7 @@ import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.triviaquest.database.TriviaQuestDatabase;
 
@@ -29,6 +30,10 @@ public class CategoryActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        adapter = new CategoryAdapter(new ArrayList<>());
+        binding.categoryRecyclerView.setAdapter(adapter);
+        binding.categoryRecyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 
     @Override
