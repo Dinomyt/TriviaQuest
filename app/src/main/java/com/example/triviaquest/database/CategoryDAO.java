@@ -1,5 +1,6 @@
 package com.example.triviaquest.database;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -8,6 +9,7 @@ import androidx.room.Update;
 
 import com.example.triviaquest.database.entities.Category;
 
+
 import java.util.List;
 
 @Dao
@@ -15,8 +17,8 @@ public interface CategoryDAO {
     @Insert
     long insert(Category category);
 
-    @Query("SELECT * FROM Category")
-    List<Category>getAll();
+    @Query("SELECT * FROM category")
+    LiveData<List<Category>> getAllCategories();
 
     @Delete
     void delete(Category category);
@@ -26,4 +28,5 @@ public interface CategoryDAO {
 
     @Update
     void update(Category category);
+
 }

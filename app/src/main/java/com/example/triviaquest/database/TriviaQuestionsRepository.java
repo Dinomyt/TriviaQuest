@@ -1,11 +1,14 @@
 package com.example.triviaquest.database;
 
+import static com.example.triviaquest.database.TriviaQuestDatabase.databaseWriteExecutor;
+
 import android.app.Application;
 import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 
 import com.example.triviaquest.MainActivity;
+import com.example.triviaquest.database.entities.Category;
 import com.example.triviaquest.database.entities.TriviaQuestions;
 import com.example.triviaquest.database.entities.User;
 
@@ -18,6 +21,7 @@ import java.util.concurrent.Future;
 public class TriviaQuestionsRepository {
     private final TriviaQuestionsDAO triviaQuestionsDAO;
     private final UserDAO userDAO;
+    private final CategoryDAO categoryDAO;
     private final ArrayList<TriviaQuestions> allQuestions;
     private static TriviaQuestionsRepository repository;
 
@@ -27,6 +31,7 @@ public class TriviaQuestionsRepository {
         this.triviaQuestionsDAO = db.triviaQuestionsDAO();
         this.allQuestions = (ArrayList<TriviaQuestions>) this.triviaQuestionsDAO.getAllQuestions();
         this.userDAO = db.userDAO();
+        this.categoryDAO = db.categoryDAO();
     }
     /**
      * TriviaQuestion methods
@@ -35,7 +40,7 @@ public class TriviaQuestionsRepository {
         if (repository != null) {
             return repository;
         }
-        Future<TriviaQuestionsRepository> future = TriviaQuestDatabase.databaseWriteExecutor.submit(
+        Future<TriviaQuestionsRepository> future = databaseWriteExecutor.submit(
                 new Callable<TriviaQuestionsRepository>() {
                     @Override
                     public TriviaQuestionsRepository call() throws Exception {
@@ -56,7 +61,7 @@ public class TriviaQuestionsRepository {
         if (repository != null) {
             return null;
         }
-        Future<ArrayList<TriviaQuestions>> future = TriviaQuestDatabase.databaseWriteExecutor.submit(
+        Future<ArrayList<TriviaQuestions>> future = databaseWriteExecutor.submit(
                 new Callable<ArrayList<TriviaQuestions>>() {
                     @Override
                     public ArrayList<TriviaQuestions> call() throws Exception {
@@ -73,7 +78,7 @@ public class TriviaQuestionsRepository {
     }
 
     public void insertQuestion(TriviaQuestions triviaQuestion) {
-        TriviaQuestDatabase.databaseWriteExecutor.execute(() ->
+        databaseWriteExecutor.execute(() ->
         {
             triviaQuestionsDAO.insert(triviaQuestion);
         });
@@ -84,7 +89,7 @@ public class TriviaQuestionsRepository {
       * User methods
       */
      public User findUserByUsernameSync(String username) {
-         Future<User> future = TriviaQuestDatabase.databaseWriteExecutor.submit(
+         Future<User> future = databaseWriteExecutor.submit(
                  new Callable<User>() {
                      @Override
                      public User call() throws Exception {
@@ -100,7 +105,7 @@ public class TriviaQuestionsRepository {
          return null;
      }
     public void insertUser(User user) {
-        TriviaQuestDatabase.databaseWriteExecutor.execute(() -> {
+        databaseWriteExecutor.execute(() -> {
             userDAO.insert(user);
         });
     }
@@ -121,7 +126,7 @@ public class TriviaQuestionsRepository {
 
     @Deprecated
     public ArrayList<TriviaQuestions> getAllLogsByUserId(int loggedInUserId) {
-        Future<ArrayList<TriviaQuestions>> future = TriviaQuestDatabase.databaseWriteExecutor.submit(
+        Future<ArrayList<TriviaQuestions>> future = databaseWriteExecutor.submit(
                 new Callable<ArrayList<TriviaQuestions>>() {
                     @Override
                     public ArrayList<TriviaQuestions> call() throws Exception {
@@ -135,4 +140,9 @@ public class TriviaQuestionsRepository {
         }
         return null;
     }
+
+    public LiveData<List<Category>> getAllCategories() {
+        return categoryDAO.getAllCategories();
+    }
+
 }

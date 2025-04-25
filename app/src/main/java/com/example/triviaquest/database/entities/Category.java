@@ -1,6 +1,7 @@
 package com.example.triviaquest.database.entities;
 
 import androidx.annotation.NonNull;
+import androidx.room.Dao;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
@@ -46,4 +47,6 @@ public class Category {
     public void setName(@NonNull String name) {
         this.name = name;
     }
+
+
 }

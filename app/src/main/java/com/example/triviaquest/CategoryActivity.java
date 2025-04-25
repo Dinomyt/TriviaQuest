@@ -10,18 +10,28 @@ import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.triviaquest.database.TriviaQuestDatabase;
+import com.example.triviaquest.database.TriviaQuestionsRepository;
+import com.example.triviaquest.database.entities.Category;
+import com.example.triviaquest.databinding.CategoryActivityBinding;
+import com.example.triviaquest.viewHolders.CategoryAdapter;
+
+import java.util.ArrayList;
 
 public class CategoryActivity extends AppCompatActivity {
+    private CategoryAdapter adapter;
+    private CategoryActivityBinding binding;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState){
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.category_activity);
+        binding = CategoryActivityBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
-        Button goBackButton = findViewById(R.id.backButtonTextView);
-        goBackButton.setOnClickListener(new View.OnClickListener() {
+
+        binding.backButtonTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(CategoryActivity.this, DashboardActivity.class);
@@ -29,7 +39,25 @@ public class CategoryActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-    }
+        adapter = new CategoryAdapter(new ArrayList<>(), new CategoryAdapter.onCategoryClickListener() {
+            @Override
+            public void onCategoryClick(Category categories) {
+                Intent intent = new Intent(CategoryActivity.this, MainActivity.class);
+                intent.putExtra("categoryId", categories.getCategoryId());
+                startActivity(intent);
+            }
+        });
+        binding.categoryRecyclerView.setAdapter(adapter);
+        binding.categoryRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        TriviaQuestionsRepository repository =
+                TriviaQuestionsRepository.getRepository(getApplication());
+        assert repository != null;
+        repository.getAllCategories().observe(this, categories ->
+                adapter.updateList(categories));
+        };
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
