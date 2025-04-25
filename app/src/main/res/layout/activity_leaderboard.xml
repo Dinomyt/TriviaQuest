@@ -29,7 +29,7 @@
         android:id="@+id/leaderboardBackButtonTextView"
         android:layout_width="150dp"
         android:layout_height="50dp"
-        android:layout_marginTop="550dp"
+        android:layout_marginTop="450dp"
         android:gravity="center"
         android:text="@string/go_back"
         android:textSize="20sp"
