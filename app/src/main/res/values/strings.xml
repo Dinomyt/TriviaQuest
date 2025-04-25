@@ -23,7 +23,7 @@
     <string name="registration_menu_text">Registration Menu\n\n Please enter a username and password to sign up:</string>
     <string name="sign_up">Sign Up</string>
     <string name="register">Register</string>
-    <string name="categories">Categories</string>
+    <string name="categories">Choose a Category</string>
     <string name="geography">Geography</string>
     <string name="literature">Literature</string>
     <string name="go_back">Go Back</string>
