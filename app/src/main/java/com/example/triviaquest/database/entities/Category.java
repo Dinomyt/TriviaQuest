@@ -1,9 +1,10 @@
 package com.example.triviaquest.database.entities;
 
 import androidx.annotation.NonNull;
-import androidx.room.Dao;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
+
+import com.example.triviaquest.database.TriviaQuestDatabase;
 
 import java.util.Objects;
 
@@ -21,6 +22,7 @@ public class Category {
 
     @Override
     public boolean equals(Object o) {
+        if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Category category = (Category) o;
         return categoryId == category.categoryId && Objects.equals(name, category.name);
@@ -31,22 +33,13 @@ public class Category {
         return Objects.hash(categoryId, name);
     }
 
-    public int getCategoryId() {
-        return categoryId;
-    }
+    public int getCategoryId() { return categoryId; }
+    public void setCategoryId(int categoryId) { this.categoryId = categoryId; }
+    @NonNull public String getName() { return name; }
+    public void setName(@NonNull String name) { this.name = name; }
 
-    public void setCategoryId(int categoryId) {
-        this.categoryId = categoryId;
-    }
-
-    @NonNull
-    public String getName() {
+    @Override
+    public String toString() {
         return name;
     }
-
-    public void setName(@NonNull String name) {
-        this.name = name;
-    }
-
-
 }

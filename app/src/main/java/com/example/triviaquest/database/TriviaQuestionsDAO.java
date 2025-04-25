@@ -26,6 +26,10 @@ public interface TriviaQuestionsDAO {
     @Query("SELECT * FROM " + TriviaQuestDatabase.TRIVIA_QUESTIONS_TABLE)
     List<TriviaQuestions> getAllQuestions();
 
+
+    @Query("SELECT * FROM " + TriviaQuestDatabase.TRIVIA_QUESTIONS_TABLE + " WHERE categoryId = :catId")
+    List<TriviaQuestions> getByCategory(int catId);
+
     @Query("DELETE FROM " + TriviaQuestDatabase.TRIVIA_QUESTIONS_TABLE)
     void deleteAll();
 

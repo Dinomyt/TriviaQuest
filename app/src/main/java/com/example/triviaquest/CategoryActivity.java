@@ -2,27 +2,28 @@ package com.example.triviaquest;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
+import android.widget.ArrayAdapter;
+import android.widget.AdapterView;
+import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.lifecycle.Observer;
 
 import com.example.triviaquest.database.TriviaQuestDatabase;
-import com.example.triviaquest.database.TriviaQuestionsRepository;
 import com.example.triviaquest.database.entities.Category;
 import com.example.triviaquest.databinding.CategoryActivityBinding;
-import com.example.triviaquest.viewHolders.CategoryAdapter;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class CategoryActivity extends AppCompatActivity {
-    private CategoryAdapter adapter;
+    private static final String TAG = "CategoryActivity";
     private CategoryActivityBinding binding;
+    private boolean hasLaidOut = false;  // skip initial callback
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,67 +31,93 @@ public class CategoryActivity extends AppCompatActivity {
         binding = CategoryActivityBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-
-        binding.backButtonTextView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(CategoryActivity.this, DashboardActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(intent);
-            }
+        // Back button
+        binding.backButtonTextView.setOnClickListener(v -> {
+            Intent intent = new Intent(this, DashboardActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
         });
-        adapter = new CategoryAdapter(new ArrayList<>(), new CategoryAdapter.onCategoryClickListener() {
-            @Override
-            public void onCategoryClick(Category categories) {
-                Intent intent = new Intent(CategoryActivity.this, MainActivity.class);
-                intent.putExtra("categoryId", categories.getCategoryId());
-                startActivity(intent);
-            }
-        });
-        binding.categoryRecyclerView.setAdapter(adapter);
-        binding.categoryRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        TriviaQuestionsRepository repository =
-                TriviaQuestionsRepository.getRepository(getApplication());
-        assert repository != null;
-        repository.getAllCategories().observe(this, categories ->
-                adapter.updateList(categories));
-        };
+        // Observe categories LiveData
+        TriviaQuestDatabase
+                .getDatabase(this)
+                .categoryDAO()
+                .getAllCategoriesLiveData()
+                .observe(this, new Observer<List<Category>>() {
+                    @Override
+                    public void onChanged(List<Category> categories) {
+                        // Console and logcat output
+                        String msg = "Loaded " + categories.size() + " categories";
+                        Log.i(TAG, msg);
+                        System.out.println(msg);
 
+                        // On-screen check
+                        Toast.makeText(CategoryActivity.this, msg, Toast.LENGTH_LONG).show();
 
+                        // Populate spinner
+                        ArrayAdapter<Category> adapter = new ArrayAdapter<>(
+                                CategoryActivity.this,
+                                android.R.layout.simple_spinner_item,
+                                categories
+                        );
+                        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        binding.spinnerCategories.setAdapter(adapter);
+
+                        // Only launch quiz when user actually selects
+                        binding.spinnerCategories.setOnItemSelectedListener(
+                                new AdapterView.OnItemSelectedListener() {
+                                    @Override
+                                    public void onItemSelected(AdapterView<?> parent,
+                                                               View view,
+                                                               int position,
+                                                               long id) {
+                                        if (!hasLaidOut) {
+                                            hasLaidOut = true;
+                                            return;
+                                        }
+                                        int catId = categories.get(position).getCategoryId();
+                                        startActivity(new Intent(CategoryActivity.this, Quiz.class)
+                                                .putExtra("categoryId", catId));
+                                    }
+
+                                    @Override
+                                    public void onNothingSelected(AdapterView<?> parent) { }
+                                }
+                        );
+                    }
+                });
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.logout_menu, menu);
+        new MenuInflater(this).inflate(R.menu.logout_menu, menu);
         return true;
     }
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-        MenuItem item = menu.findItem(R.id.logoutMenuItem);
-        item.setVisible(true);
-        item.setTitle("Logout");
-        item.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(@NonNull MenuItem item) {
-                startActivity(LoginActivity.loginIntentFactory(getApplicationContext()));
-                return false;
-            }
+        // Logout
+        MenuItem logout = menu.findItem(R.id.logoutMenuItem);
+        logout.setVisible(true);
+        logout.setTitle("Logout");
+        logout.setOnMenuItemClickListener(item -> {
+            startActivity(LoginActivity.loginIntentFactory(getApplicationContext()));
+            return false;
         });
 
-        MenuItem usernameItem = menu.findItem(R.id.usernameMenuItem);
-        int userId = getSharedPreferences("TriviaPrefs", MODE_PRIVATE).getInt("userId", -1);
+        // Username display
+        MenuItem userItem = menu.findItem(R.id.usernameMenuItem);
+        int userId = getSharedPreferences("TriviaPrefs", MODE_PRIVATE)
+                .getInt("userId", -1);
         if (userId != -1) {
-            TriviaQuestDatabase db = TriviaQuestDatabase.getDatabase(this);
-            db.userDAO().getUserByUserId(userId).observe(this, user -> {
-                if (user != null) {
-                    usernameItem.setTitle(user.getUsername());
-                }
-            });
+            TriviaQuestDatabase
+                    .getDatabase(this)
+                    .userDAO()
+                    .getUserByUserId(userId)
+                    .observe(this, user -> {
+                        if (user != null) userItem.setTitle(user.getUsername());
+                    });
         }
         return true;
     }
-
-
 }

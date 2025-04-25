@@ -141,9 +141,9 @@ public class TriviaQuestionsRepository {
         return null;
     }
 
-    public LiveData<List<Category>> getAllCategories() {
-        return categoryDAO.getAllCategories();
-    }
+     public List<Category> getAllCategories() {
+         return categoryDAO.getAll();
+     }
 
     public LiveData<List<Category>> getTwoMostRecentCategories() {
          return categoryDAO.getTwoMostRecent();

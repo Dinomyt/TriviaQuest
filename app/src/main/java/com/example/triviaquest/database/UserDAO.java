@@ -36,4 +36,7 @@ public interface UserDAO {
 
     @Query("SELECT * FROM " + TriviaQuestDatabase.USER_TABLE + " ORDER BY score DESC")
     LiveData<List<User>> getUsersByScore();
+
+    @Query("SELECT * FROM " + TriviaQuestDatabase.USER_TABLE + " WHERE id == :userId LIMIT 1")
+    User getUserByUserIdSync(int userId);
 }
