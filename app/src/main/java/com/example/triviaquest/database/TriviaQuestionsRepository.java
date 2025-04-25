@@ -145,4 +145,8 @@ public class TriviaQuestionsRepository {
         return categoryDAO.getAllCategories();
     }
 
+    public LiveData<List<Category>> getTwoMostRecentCategories() {
+         return categoryDAO.getTwoMostRecent();
+    }
+
 }

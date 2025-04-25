@@ -13,18 +13,32 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.triviaquest.database.CategoryDAO;
 import com.example.triviaquest.database.TriviaQuestDatabase;
 import com.example.triviaquest.database.entities.Category;
+import com.example.triviaquest.databinding.CategoryActivityBinding;
+import com.example.triviaquest.viewHolders.CategoryAdapter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class DashboardActivity extends AppCompatActivity {
 
+    private CategoryAdapter adapter;
+    private CategoryActivityBinding binding;
+    private List<Category> recentCategories = new ArrayList<>();
+    private CategoryDAO cDao;
     private static final String USERNAME_KEY = "USERNAME_KEY";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dashboard_activity);
+
+        binding = CategoryActivityBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
         invalidateOptionsMenu();
 
@@ -59,6 +73,11 @@ public class DashboardActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void loadRecentCategories() {
+        List<Category> twoRecent = cDao.getTwoMostRecent();
+        star
     }
 
     @Override
