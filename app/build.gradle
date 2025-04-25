@@ -38,6 +38,7 @@ dependencies {
     implementation libs.activity
     implementation libs.constraintlayout
     implementation libs.room.common.jvm
+    implementation libs.litert.support.api
     testImplementation libs.junit
     androidTestImplementation libs.ext.junit
     androidTestImplementation libs.espresso.core
