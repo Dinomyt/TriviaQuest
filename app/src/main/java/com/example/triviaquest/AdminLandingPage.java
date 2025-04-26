@@ -1,8 +1,10 @@
 package com.example.triviaquest;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -13,6 +15,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.triviaquest.database.TriviaQuestionsRepository;
 import com.example.triviaquest.database.entities.Category;
 import com.example.triviaquest.database.entities.TriviaQuestions;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class AdminLandingPage extends AppCompatActivity {
 
@@ -44,7 +49,8 @@ public class AdminLandingPage extends AppCompatActivity {
         Button btnAddQuestion = findViewById(R.id.btnAddQuestion);
         Button btnAddCategory = findViewById(R.id.btnAddCategory);
         Button btnEditQuestion = findViewById(R.id.btnEditQuestion);
-        Button btnEditCategory = findViewById(R.id.btnEditCategory);
+        Button btnGoHome = findViewById(R.id.btnGoHome);
+
 
         // Initialize layouts
         layoutAddQuestion = findViewById(R.id.layoutAddQuestion);
@@ -61,11 +67,54 @@ public class AdminLandingPage extends AppCompatActivity {
         spinnerCorrectAnswer = findViewById(R.id.spinnerCorrectAnswer);
         spinnerCategory = findViewById(R.id.spinnerCategory);
 
+        //
+        loadCorrectAnswers();
+        // Load categories into spinner
+        loadCategories();
+
         // Button click listeners
         btnAddQuestion.setOnClickListener(v -> setVisibleSection(layoutAddQuestion));
         btnAddCategory.setOnClickListener(v -> setVisibleSection(layoutAddCategory));
         btnEditQuestion.setOnClickListener(v -> setVisibleSection(layoutEditQuestions));
-        btnEditCategory.setOnClickListener(v -> setVisibleSection(layoutEditCategories));
+
+        btnGoHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AdminLandingPage.this, DashboardActivity.class);
+                startActivity(intent);
+                finish(); // optional, this will close Admin page so it's not in the backstack
+            }
+        });
+    }
+
+    private void loadCorrectAnswers() {
+        // Set the answers for the correct answer spinner
+        List<String> answers = new ArrayList<>();
+        answers.add("Answer 1");
+        answers.add("Answer 2");
+        answers.add("Answer 3");
+        answers.add("Answer 4");
+
+        // Set the adapter for the spinner
+        ArrayAdapter<String> answersAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, answers);
+        answersAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerCorrectAnswer.setAdapter(answersAdapter);
+    }
+
+    private void loadCategories() {
+        // Fetch the list of categories from the database
+        List<Category> categories = triviaQuestionsRepository.getAllCategories();  // Modify this if needed to fetch from your database
+
+        // Create a list of category names to populate the spinner
+        List<String> categoryNames = new ArrayList<>();
+        for (Category category : categories) {
+            categoryNames.add(category.getName());
+        }
+
+        // Set the adapter for the spinner
+        ArrayAdapter<String> categoryAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, categoryNames);
+        categoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerCategory.setAdapter(categoryAdapter);
     }
 
     private void setVisibleSection(View visibleLayout) {

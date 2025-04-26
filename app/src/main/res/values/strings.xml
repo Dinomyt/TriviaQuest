@@ -52,4 +52,5 @@
     <string name="save_changes">Save Changes</string>
     <string name="edit_question">Edit Question</string>
     <string name="edit_category_name">Edit Category Name</string>
+    <string name="return_to_home">Return to Home</string>
 </resources>

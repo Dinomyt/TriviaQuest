@@ -162,4 +162,8 @@ public class TriviaQuestionsRepository {
             triviaQuestionsDAO.updateQuestion(updatedQuestion); // Perform the update in the database
         });
     }
+
+    public TriviaQuestions getQuestionById(int questionId) {
+        return triviaQuestionsDAO.getQuestionById(questionId);
+    }
 }
