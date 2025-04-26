@@ -76,7 +76,7 @@ public class CategoryActivity extends AppCompatActivity {
                                             return;
                                         }
                                         int catId = categories.get(position).getCategoryId();
-                                        startActivity(new Intent(CategoryActivity.this, Quiz.class)
+                                        startActivity(new Intent(CategoryActivity.this, QuizActivity.class)
                                                 .putExtra("categoryId", catId));
                                     }
 
