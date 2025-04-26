@@ -27,7 +27,7 @@ public class AdminLandingPage extends AppCompatActivity {
     private View layoutAddQuestion, layoutAddCategory, layoutEditQuestions, layoutEditCategories;
     private TriviaQuestionsRepository triviaQuestionsRepository;
     private EditText etQuestionText, etAnswer1, etAnswer2, etAnswer3, etAnswer4;
-    private Spinner spinnerCorrectAnswer, spinnerCategory, spinnerSelectCategory;
+    private Spinner spinnerCorrectAnswer, spinnerCategory, spinnerSelectCategory, spinnerSelectQuestion;
     private int currentQuestionId = -1; // Holds the ID of the question being edited
 
     @Override
@@ -70,6 +70,7 @@ public class AdminLandingPage extends AppCompatActivity {
         spinnerCorrectAnswer = findViewById(R.id.spinnerCorrectAnswer);
         spinnerCategory = findViewById(R.id.spinnerCategory);
         spinnerSelectCategory = findViewById(R.id.spinnerSelectCategory);
+        spinnerSelectQuestion = findViewById(R.id.spinnerSelectQuestion);
 
         loadCorrectAnswers();
         loadCategories();
@@ -78,7 +79,11 @@ public class AdminLandingPage extends AppCompatActivity {
         btnAddQuestion.setOnClickListener(v -> setVisibleSection(layoutAddQuestion));
         btnAddCategory.setOnClickListener(v -> setVisibleSection(layoutAddCategory));
         btnDeleteCategory.setOnClickListener(v -> setVisibleSection(layoutEditCategories));
-        btnEditQuestion.setOnClickListener(v -> setVisibleSection(layoutEditQuestions));
+        btnEditQuestion.setOnClickListener(v -> {
+            setVisibleSection(layoutEditQuestions);
+            loadQuestions();
+        });
+
 
         btnGoHome.setOnClickListener(v -> {
             Intent intent = new Intent(AdminLandingPage.this, DashboardActivity.class);
@@ -99,6 +104,31 @@ public class AdminLandingPage extends AppCompatActivity {
         ArrayAdapter<String> answersAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, answers);
         answersAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerCorrectAnswer.setAdapter(answersAdapter);
+    }
+
+    private void loadQuestions() {
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        executor.execute(() -> {
+            // Fetch questions from the database
+            List<TriviaQuestions> questions = triviaQuestionsRepository.getAllQuestions();
+
+            // Make sure questions is never null
+            if (questions == null) {
+                questions = new ArrayList<>();
+            }
+
+            // Update the spinner on the main thread
+            List<TriviaQuestions> finalQuestions = questions;
+            runOnUiThread(() -> {
+                ArrayAdapter<TriviaQuestions> adapter = new ArrayAdapter<>(
+                        AdminLandingPage.this,
+                        android.R.layout.simple_spinner_item,
+                        finalQuestions
+                );
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                spinnerSelectQuestion.setAdapter(adapter);
+            });
+        });
     }
 
     private void loadCategories() {
