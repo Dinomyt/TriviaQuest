@@ -6,6 +6,7 @@ import static org.junit.Assert.*;
 
 import com.example.triviaquest.database.entities.Category;
 import com.example.triviaquest.database.entities.TriviaQuestions;
+import com.example.triviaquest.database.entities.User;
 
 public class TriviaQuestTest {
 
@@ -72,4 +73,22 @@ public class TriviaQuestTest {
         assertFalse(q1.equals(null));
         assertFalse(q1.equals("foo"));
     }
+
+    @Test
+    public void testRegisterUser() {
+        User testUser = new User("testUsername", "testPassword");
+        assertEquals("testUsername", testUser.getUsername());
+        assertEquals("testPassword", testUser.getPassword());
+        assertFalse(testUser.isAdmin());
+    }
+
+    @Test
+    public void testLeaderboardEntry() {
+        TriviaQuestions question = new TriviaQuestions(
+                "What is the capital of Spain?", "Madrid", "Barcelona", "Valencia", "Seville", "Madrid", 1
+        );
+        assertEquals("Madrid", question.getOptionA());
+        assertEquals("What is the capital of Spain?", question.getQuestionText());
+    }
+
 }
