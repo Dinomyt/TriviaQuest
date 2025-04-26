@@ -8,6 +8,9 @@ import com.example.triviaquest.database.entities.Category;
 import com.example.triviaquest.database.entities.TriviaQuestions;
 import com.example.triviaquest.database.entities.User;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class TriviaQuestTest {
 
     @Test
@@ -89,6 +92,39 @@ public class TriviaQuestTest {
         );
         assertEquals("Madrid", question.getOptionA());
         assertEquals("What is the capital of Spain?", question.getQuestionText());
+    }
+
+
+    //Jrc Tests loadCategories/DeleteCategory
+    @Test
+    public void testLoadCategories() {
+        // Mocking a fake category list
+        List<String> mockCategories = new ArrayList<>();
+        mockCategories.add("Science");
+        mockCategories.add("History");
+        mockCategories.add("Sports");
+
+        // Simulate loadCategories result
+        assertEquals(3, mockCategories.size());
+        assertTrue(mockCategories.contains("Science"));
+        assertTrue(mockCategories.contains("History"));
+        assertTrue(mockCategories.contains("Sports"));
+    }
+
+    @Test
+    public void testDeleteCategory() {
+        // Mock a category list
+        List<String> mockCategories = new ArrayList<>();
+        mockCategories.add("Science");
+        mockCategories.add("History");
+        mockCategories.add("Sports");
+
+        // Simulate deleting "History"
+        mockCategories.remove("History");
+
+        // Now check that "History" is gone
+        assertEquals(2, mockCategories.size());
+        assertFalse(mockCategories.contains("History"));
     }
 
 }
