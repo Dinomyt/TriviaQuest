@@ -34,7 +34,8 @@
     <string name="DashboardActivityClassWelcome">"Welcome, "</string>
     <string name="leaderboard">Leaderboard</string>
     <string name="leaderboardButton">Leaderboard</string>
-    <string name="just_out_of_the_trivia_oven">Just Out of the Trivia Oven:</string>
     <string name="score_heading">Score</string>
     <string name="user_heading">User</string>
+    <string name="our_two_newest_categories">✨ Our two newest categories ✨</string>
+    <string name="just_out_of_the_trivia_oven">🥧 Just Out of the Trivia Oven! 🥧</string>
 </resources>
