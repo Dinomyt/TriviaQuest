@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layoutEditQuestions"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="16dp">
+
+    <!-- Select Question -->
+    <Spinner
+        android:id="@+id/spinnerSelectQuestion"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Question Text -->
+    <EditText
+        android:id="@+id/editTextEditQuestion"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:hint="@string/edit_question"
+        android:inputType="text"
+        app:layout_constraintTop_toBottomOf="@id/spinnerSelectQuestion"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Answer 1 (and similar for others) -->
+    <EditText
+        android:id="@+id/editTextEditAnswer1"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:hint="@string/answer_1"
+        android:inputType="text"
+        app:layout_constraintTop_toBottomOf="@id/editTextEditQuestion"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Correct Answer -->
+    <Spinner
+        android:id="@+id/spinnerEditCorrectAnswer"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        app:layout_constraintTop_toBottomOf="@id/editTextEditAnswer1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Submit Button -->
+    <Button
+        android:id="@+id/btnSaveEditedQuestion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/save_changes"
+        app:layout_constraintTop_toBottomOf="@id/spinnerEditCorrectAnswer"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

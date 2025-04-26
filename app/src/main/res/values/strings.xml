@@ -39,4 +39,17 @@
     <string name="add_category">Add Category</string>
     <string name="edit_questions">Edit Questions</string>
     <string name="admin_menu_n_nwhat_would_you_like_to_do">Admin Menu\n\nWhat would you like to do?</string>
+    <string name="edit_categories">Edit Categories</string>
+    <string name="admin_page_n_nwhat_would_you_like_to_do">Admin Page\n\nWhat would you like to do?</string>
+    <string name="enter_question">Enter Question</string>
+    <string name="submit_question">Submit Question</string>
+    <string name="answer_4">Answer 4</string>
+    <string name="answer_3">Answer 3</string>
+    <string name="answer_2">Answer 2</string>
+    <string name="answer_1">Answer 1</string>
+    <string name="enter_category_name">Enter Category Name</string>
+    <string name="submit_category">Submit Category</string>
+    <string name="save_changes">Save Changes</string>
+    <string name="edit_question">Edit Question</string>
+    <string name="edit_category_name">Edit Category Name</string>
 </resources>

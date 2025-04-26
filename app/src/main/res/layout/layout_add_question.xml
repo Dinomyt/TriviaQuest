@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layoutAddQuestion"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="16dp">
+
+    <!-- Question Text -->
+    <EditText
+        android:id="@+id/editTextQuestion"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:hint="@string/enter_question"
+        android:inputType="text"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Answer 1 -->
+    <EditText
+        android:id="@+id/editTextAnswer1"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:hint="@string/answer_1"
+        android:inputType="text"
+        app:layout_constraintTop_toBottomOf="@id/editTextQuestion"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Answer 2 -->
+    <EditText
+        android:id="@+id/editTextAnswer2"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:hint="@string/answer_2"
+        android:inputType="text"
+        app:layout_constraintTop_toBottomOf="@id/editTextAnswer1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Answer 3 -->
+    <EditText
+        android:id="@+id/editTextAnswer3"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:hint="@string/answer_3"
+        android:inputType="text"
+        app:layout_constraintTop_toBottomOf="@id/editTextAnswer2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Answer 4 -->
+    <EditText
+        android:id="@+id/editTextAnswer4"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:hint="@string/answer_4"
+        android:inputType="text"
+        app:layout_constraintTop_toBottomOf="@id/editTextAnswer3"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Correct Answer -->
+    <Spinner
+        android:id="@+id/spinnerCorrectAnswer"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        app:layout_constraintTop_toBottomOf="@id/editTextAnswer4"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Category -->
+    <Spinner
+        android:id="@+id/spinnerCategory"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        app:layout_constraintTop_toBottomOf="@id/spinnerCorrectAnswer"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Submit Button -->
+    <Button
+        android:id="@+id/btnSubmitQuestion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/submit_question"
+        app:layout_constraintTop_toBottomOf="@id/spinnerCategory"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
