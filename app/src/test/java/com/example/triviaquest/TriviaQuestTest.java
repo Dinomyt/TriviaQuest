@@ -37,4 +37,39 @@ public class TriviaQuestTest {
         Category category = new Category("Fast Food");
         assertEquals("Fast Food", category.getName());
     }
+
+    @Test
+    public void categoryToStringTest() {
+        Category category = new Category("Fast Food");
+        // toString() should return the name (so Spinners show it properly)
+        assertEquals("Fast Food", category.toString());
+        // changing name should be reflected too
+        category.setName("Cuisine");
+        assertEquals("Cuisine", category.toString());
+    }
+
+    @Test
+    public void triviaQuestionsEqualsHashCodeTest() {
+        TriviaQuestions q1 = new TriviaQuestions(
+                "Q", "A1", "B1", "C1", "D1", "A1", 42
+        );
+        TriviaQuestions q2 = new TriviaQuestions(
+                "Q", "A1", "B1", "C1", "D1", "A1", 42
+        );
+        TriviaQuestions q3 = new TriviaQuestions(
+                "Q2", "A2", "B2", "C2", "D2", "C2", 42
+        );
+
+        // reflexive, symmetric, and same hashCode
+        assertTrue(q1.equals(q1));
+        assertTrue(q1.equals(q2));
+        assertTrue(q2.equals(q1));
+        assertEquals(q1.hashCode(), q2.hashCode());
+
+        // not equal to a different question
+        assertFalse(q1.equals(q3));
+        // also not equal to null or other class
+        assertFalse(q1.equals(null));
+        assertFalse(q1.equals("foo"));
+    }
 }
