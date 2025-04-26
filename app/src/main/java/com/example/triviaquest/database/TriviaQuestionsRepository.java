@@ -16,8 +16,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
+import com.example.triviaquest.database.TriviaQuestDatabase;
 public class TriviaQuestionsRepository {
     private final TriviaQuestionsDAO triviaQuestionsDAO;
     private final UserDAO userDAO;
@@ -149,4 +152,29 @@ public class TriviaQuestionsRepository {
          return categoryDAO.getTwoMostRecent();
     }
 
+    public void insertCategory(Category newCategory) {
+        // You may want to do this operation on a background thread to prevent UI blocking
+        new Thread(() -> {
+            categoryDAO.insert(newCategory); // This assumes you have an insert method in CategoryDao
+        }).start();
+    }
+
+    public void updateQuestion(TriviaQuestions updatedQuestion) {
+        TriviaQuestDatabase.databaseWriteExecutor.execute(() -> {
+            triviaQuestionsDAO.updateQuestion(updatedQuestion); // Perform the update in the database
+        });
+    }
+
+    public TriviaQuestions getQuestionById(int questionId) {
+        return triviaQuestionsDAO.getQuestionById(questionId);
+    }
+
+    public void deleteCategoryById(int categoryId) {
+        // Perform the delete operation in the background thread (if using Room or similar)
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        executor.execute(() -> {
+            // Call the DAO to delete the category
+            triviaQuestionsDAO.deleteCategoryById(categoryId);
+        });
+    }
 }

@@ -59,8 +59,13 @@ public class LoginActivity extends AppCompatActivity {
                     getSharedPreferences("TriviaPrefs", MODE_PRIVATE)
                             .edit()
                             .putInt("userId", user.getId())
+                            .putBoolean("isAdmin", user.isAdmin())
                             .apply();
-                    startActivity(DashboardActivity.dashboardIntentFactory(getApplicationContext(), username));
+                    if (user.isAdmin()){
+                        startActivity(new Intent(getApplicationContext(), AdminLandingPage.class));
+                    } else {
+                        startActivity(DashboardActivity.dashboardIntentFactory(getApplicationContext(), username));
+                    }
                 } else {
                     toastMaker("Invalid Password");
                     binding.passwordLoginEditText.setSelection(0);

@@ -83,4 +83,9 @@ public class TriviaQuestions {
     // ← new getter/setter for correctAnswer
     public String getCorrectAnswer() { return correctAnswer; }
     public void setCorrectAnswer(String correctAnswer) { this.correctAnswer = correctAnswer; }
+
+    @Override
+    public String toString() {
+        return this.questionText; // or any other field you'd like to display (e.g., the question itself)
+    }
 }
