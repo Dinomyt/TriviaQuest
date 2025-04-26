@@ -35,4 +35,8 @@
     <string name="leaderboard">Leaderboard</string>
     <string name="leaderboardButton">Leaderboard</string>
     <string name="just_out_of_the_trivia_oven">Just Out of the Trivia Oven:</string>
+    <string name="add_question">Add Question</string>
+    <string name="add_category">Add Category</string>
+    <string name="edit_questions">Edit Questions</string>
+    <string name="admin_menu_n_nwhat_would_you_like_to_do">Admin Menu\n\nWhat would you like to do?</string>
 </resources>

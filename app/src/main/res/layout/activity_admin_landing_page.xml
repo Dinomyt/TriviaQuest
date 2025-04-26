@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AdminLandingPage"
+    android:fitsSystemWindows="true">
+
+  <TextView
+      android:id="@+id/adminLandingMenu"
+      android:layout_width="match_parent"
+      android:layout_height="150dp"
+      android:layout_margin="16dp"
+      android:layout_marginTop="328dp"
+      android:gravity="center"
+      android:text="@string/admin_menu_n_nwhat_would_you_like_to_do"
+      android:textSize="32sp"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintHorizontal_bias="0.093"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      />
+
+  <Button
+      android:layout_width="match_parent"
+      android:layout_height="105dp"
+      android:layout_margin="16dp"
+      android:layout_marginTop="24dp"
+      android:layout_marginBottom="24dp"
+      android:textSize="32sp"
+      android:gravity="center"
+      app:layout_constraintEnd_toEndOf="@id/adminLandingMenu"
+      app:layout_constraintStart_toStartOf="@id/adminLandingMenu"
+      app:layout_constraintTop_toBottomOf="@id/adminLandingMenu"
+      android:id="@+id/addQuestion"
+      android:text="@string/add_question"
+      />
+
+  <Button
+      android:id="@+id/addCategory"
+      android:layout_width="match_parent"
+      android:layout_height="105dp"
+      android:layout_margin="16dp"
+      android:layout_marginTop="208dp"
+      android:gravity="center"
+      android:text="@string/add_category"
+      android:textSize="32sp"
+      app:layout_constraintEnd_toEndOf="@id/addQuestion"
+      app:layout_constraintStart_toStartOf="@id/addQuestion"
+      app:layout_constraintTop_toBottomOf="@id/addQuestion"
+      />
+
+  <Button
+      android:id="@+id/editQuestions"
+      android:layout_width="match_parent"
+      android:layout_height="105dp"
+      android:layout_margin="16dp"
+      android:layout_marginTop="208dp"
+      android:gravity="center"
+      android:text="@string/edit_questions"
+      android:textSize="32sp"
+      app:layout_constraintEnd_toEndOf="@id/addCategory"
+      app:layout_constraintStart_toStartOf="@id/addCategory"
+      app:layout_constraintTop_toBottomOf="@id/addCategory"
+      />
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
