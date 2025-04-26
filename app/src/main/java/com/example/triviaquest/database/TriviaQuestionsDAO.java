@@ -5,6 +5,7 @@ import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
+import androidx.room.Update;
 
 import com.example.triviaquest.database.entities.TriviaQuestions;
 
@@ -36,4 +37,9 @@ public interface TriviaQuestionsDAO {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertQuestion(TriviaQuestions triviaQuestion);
 
+    @androidx.room.Update
+    void update(TriviaQuestions triviaQuestion);
+
+    @Update
+    void updateQuestion(TriviaQuestions question);
 }

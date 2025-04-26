@@ -18,6 +18,7 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
+import com.example.triviaquest.database.TriviaQuestDatabase;
 public class TriviaQuestionsRepository {
     private final TriviaQuestionsDAO triviaQuestionsDAO;
     private final UserDAO userDAO;
@@ -154,5 +155,11 @@ public class TriviaQuestionsRepository {
         new Thread(() -> {
             categoryDAO.insert(newCategory); // This assumes you have an insert method in CategoryDao
         }).start();
+    }
+
+    public void updateQuestion(TriviaQuestions updatedQuestion) {
+        TriviaQuestDatabase.databaseWriteExecutor.execute(() -> {
+            triviaQuestionsDAO.updateQuestion(updatedQuestion); // Perform the update in the database
+        });
     }
 }
