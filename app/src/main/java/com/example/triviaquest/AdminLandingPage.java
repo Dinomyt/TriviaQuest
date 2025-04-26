@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.triviaquest.database.TriviaQuestionsRepository;
@@ -18,13 +19,15 @@ import com.example.triviaquest.database.entities.TriviaQuestions;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class AdminLandingPage extends AppCompatActivity {
 
     private View layoutAddQuestion, layoutAddCategory, layoutEditQuestions, layoutEditCategories;
     private TriviaQuestionsRepository triviaQuestionsRepository;
     private EditText etQuestionText, etAnswer1, etAnswer2, etAnswer3, etAnswer4;
-    private Spinner spinnerCorrectAnswer, spinnerCategory;
+    private Spinner spinnerCorrectAnswer, spinnerCategory, spinnerSelectCategory;
     private int currentQuestionId = -1; // Holds the ID of the question being edited
 
     @Override
@@ -48,9 +51,9 @@ public class AdminLandingPage extends AppCompatActivity {
         // Initialize buttons
         Button btnAddQuestion = findViewById(R.id.btnAddQuestion);
         Button btnAddCategory = findViewById(R.id.btnAddCategory);
+        Button btnDeleteCategory = findViewById(R.id.btnDeleteCategory);
         Button btnEditQuestion = findViewById(R.id.btnEditQuestion);
         Button btnGoHome = findViewById(R.id.btnGoHome);
-
 
         // Initialize layouts
         layoutAddQuestion = findViewById(R.id.layoutAddQuestion);
@@ -66,24 +69,21 @@ public class AdminLandingPage extends AppCompatActivity {
         etAnswer4 = findViewById(R.id.editTextAnswer4);
         spinnerCorrectAnswer = findViewById(R.id.spinnerCorrectAnswer);
         spinnerCategory = findViewById(R.id.spinnerCategory);
+        spinnerSelectCategory = findViewById(R.id.spinnerSelectCategory);
 
-        //
         loadCorrectAnswers();
-        // Load categories into spinner
         loadCategories();
 
         // Button click listeners
         btnAddQuestion.setOnClickListener(v -> setVisibleSection(layoutAddQuestion));
         btnAddCategory.setOnClickListener(v -> setVisibleSection(layoutAddCategory));
+        btnDeleteCategory.setOnClickListener(v -> setVisibleSection(layoutEditCategories));
         btnEditQuestion.setOnClickListener(v -> setVisibleSection(layoutEditQuestions));
 
-        btnGoHome.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(AdminLandingPage.this, DashboardActivity.class);
-                startActivity(intent);
-                finish(); // optional, this will close Admin page so it's not in the backstack
-            }
+        btnGoHome.setOnClickListener(v -> {
+            Intent intent = new Intent(AdminLandingPage.this, DashboardActivity.class);
+            startActivity(intent);
+            finish(); // optional, this will close Admin page so it's not in the backstack
         });
     }
 
@@ -102,20 +102,49 @@ public class AdminLandingPage extends AppCompatActivity {
     }
 
     private void loadCategories() {
-        // Fetch the list of categories from the database
-        List<Category> categories = triviaQuestionsRepository.getAllCategories();  // Modify this if needed to fetch from your database
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        executor.execute(() -> {
+            List<Category> categories = triviaQuestionsRepository.getAllCategories();
 
-        // Create a list of category names to populate the spinner
-        List<String> categoryNames = new ArrayList<>();
-        for (Category category : categories) {
-            categoryNames.add(category.getName());
+            runOnUiThread(() -> {
+                ArrayAdapter<Category> adapter = new ArrayAdapter<>(AdminLandingPage.this,
+                        android.R.layout.simple_spinner_item, categories);
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+                if (spinnerCategory != null) {
+                    spinnerCategory.setAdapter(adapter);
+                }
+                if (spinnerSelectCategory != null) {
+                    spinnerSelectCategory.setAdapter(adapter);
+                }
+            });
+        });
+    }
+
+    public void onDeleteCategory(View view) {
+        // Get the selected category
+        Category selectedCategory = (Category) spinnerSelectCategory.getSelectedItem();
+
+        if (selectedCategory == null) {
+            Toast.makeText(this, "Please select a category to delete.", Toast.LENGTH_SHORT).show();
+            return;
         }
 
-        // Set the adapter for the spinner
-        ArrayAdapter<String> categoryAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, categoryNames);
-        categoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerCategory.setAdapter(categoryAdapter);
+        int categoryId = selectedCategory.categoryId;
+
+        // Show confirmation dialog before deletion
+        new AlertDialog.Builder(this)
+                .setTitle("Delete Category")
+                .setMessage("Are you sure you want to delete this category?")
+                .setPositiveButton("Yes", (dialog, which) -> {
+                    triviaQuestionsRepository.deleteCategoryById(categoryId);
+                    Toast.makeText(this, "Category deleted successfully.", Toast.LENGTH_SHORT).show();
+                    loadCategories();
+                })
+                .setNegativeButton("No", null)
+                .show();
     }
+
 
     private void setVisibleSection(View visibleLayout) {
         layoutAddQuestion.setVisibility(View.GONE);
@@ -125,126 +154,42 @@ public class AdminLandingPage extends AppCompatActivity {
         visibleLayout.setVisibility(View.VISIBLE);
     }
 
+    // Existing method for adding a question
     public void onSubmitAddQuestion(View view) {
-        // Get references to the input fields
         String questionText = etQuestionText.getText().toString().trim();
         String answer1 = etAnswer1.getText().toString().trim();
         String answer2 = etAnswer2.getText().toString().trim();
         String answer3 = etAnswer3.getText().toString().trim();
         String answer4 = etAnswer4.getText().toString().trim();
-        int correctAnswer = spinnerCorrectAnswer.getSelectedItemPosition(); // Index of correct answer
-        int categoryId = (int) spinnerCategory.getSelectedItemId();  // Assuming category spinner itemId is categoryId
+        int correctAnswer = spinnerCorrectAnswer.getSelectedItemPosition();
+        int categoryId = (int) spinnerCategory.getSelectedItemId();
 
-        // Check if any required fields are empty
-        if (questionText.isEmpty() || answer1.isEmpty() || answer2.isEmpty() ||
-                answer3.isEmpty() || answer4.isEmpty() || correctAnswer == Spinner.INVALID_POSITION) {
+        if (questionText.isEmpty() || answer1.isEmpty() || answer2.isEmpty() || answer3.isEmpty() || answer4.isEmpty() || correctAnswer == Spinner.INVALID_POSITION) {
             Toast.makeText(this, "Please fill in all fields.", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        // Create a new TriviaQuestions object
         TriviaQuestions triviaQuestion = new TriviaQuestions(
                 questionText, answer1, answer2, answer3, answer4, String.valueOf(correctAnswer), categoryId
         );
 
-        // Insert the new question using the repository
         triviaQuestionsRepository.insertQuestion(triviaQuestion);
-
-        // Notify the user
         Toast.makeText(this, "Question added successfully.", Toast.LENGTH_SHORT).show();
     }
 
-    public void onSubmitEditQuestion(View view) {
-        if (currentQuestionId == -1) {
-            Toast.makeText(this, "No question selected for editing.", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        // Get references to the input fields
-        String questionText = etQuestionText.getText().toString().trim();
-        String answer1 = etAnswer1.getText().toString().trim();
-        String answer2 = etAnswer2.getText().toString().trim();
-        String answer3 = etAnswer3.getText().toString().trim();
-        String answer4 = etAnswer4.getText().toString().trim();
-        int correctAnswer = spinnerCorrectAnswer.getSelectedItemPosition(); // Index of correct answer
-        int categoryId = (int) spinnerCategory.getSelectedItemId();  // Assuming category spinner itemId is categoryId
-
-        // Check if any required fields are empty
-        if (questionText.isEmpty() || answer1.isEmpty() || answer2.isEmpty() ||
-                answer3.isEmpty() || answer4.isEmpty() || correctAnswer == Spinner.INVALID_POSITION) {
-            Toast.makeText(this, "Please fill in all fields.", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        // Create a new TriviaQuestions object
-        TriviaQuestions updatedQuestion = new TriviaQuestions(
-                questionText, answer1, answer2, answer3, answer4, String.valueOf(correctAnswer), categoryId
-        );
-        updatedQuestion.setQuestionId(currentQuestionId); // Set the ID for the question we are editing
-
-        // Update the existing question using the repository
-        triviaQuestionsRepository.updateQuestion(updatedQuestion);
-
-        // Notify the user
-        Toast.makeText(this, "Question updated successfully.", Toast.LENGTH_SHORT).show();
-
-        // Optionally, clear the fields or navigate to another screen
-        clearFields();
-    }
-
-    private void clearFields() {
-        etQuestionText.setText("");
-        etAnswer1.setText("");
-        etAnswer2.setText("");
-        etAnswer3.setText("");
-        etAnswer4.setText("");
-        spinnerCorrectAnswer.setSelection(0);
-        spinnerCategory.setSelection(0);
-        currentQuestionId = -1;  // Reset the current question ID
-    }
-
-    public void onSelectQuestionForEditing(int questionId) {
-        // Load the question data based on the selected questionId
-        TriviaQuestions question = triviaQuestionsRepository.getQuestionById(questionId);
-
-        if (question != null) {
-            // Set the UI fields with the existing question data
-            etQuestionText.setText(question.getQuestionText());
-            etAnswer1.setText(question.getOptionA());
-            etAnswer2.setText(question.getOptionB());
-            etAnswer3.setText(question.getOptionC());
-            etAnswer4.setText(question.getOptionD());
-            // Set correct answer and category spinner accordingly
-            spinnerCorrectAnswer.setSelection(Integer.parseInt(question.getCorrectAnswer()));
-            spinnerCategory.setSelection(question.getCategoryId());
-            currentQuestionId = question.getQuestionId();
-        } else {
-            Toast.makeText(this, "Question not found.", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    // Function to handle submitting a category
+    // Existing method for submitting a category
     public void onSubmitAddCategory(View view) {
-        // Get the category name from the EditText field
         EditText editTextCategoryName = findViewById(R.id.editTextCategoryName);
         String categoryName = editTextCategoryName.getText().toString().trim();
 
-        // Validate the input
         if (categoryName.isEmpty()) {
             Toast.makeText(this, "Please enter a category name.", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        // Create a new Category object
         Category newCategory = new Category(categoryName);
-
-        // Insert the new category into the database using the repository
         triviaQuestionsRepository.insertCategory(newCategory);
-
-        // Provide feedback to the user
         Toast.makeText(this, "Category added successfully.", Toast.LENGTH_SHORT).show();
-
-        // Optionally, clear the field or navigate away
         editTextCategoryName.setText("");
     }
 }

@@ -45,4 +45,7 @@ public interface TriviaQuestionsDAO {
 
     @Query("SELECT * FROM triviaQuestionsTable WHERE questionId = :questionId LIMIT 1")
     TriviaQuestions getQuestionById(int questionId);
+
+    @Query("DELETE FROM category WHERE categoryId = :categoryId")
+    void deleteCategoryById(int categoryId);
 }

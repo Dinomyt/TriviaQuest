@@ -42,13 +42,23 @@
       app:layout_constraintEnd_toEndOf="parent"
       android:layout_marginTop="16dp"/>
 
+  <Button
+      android:id="@+id/btnDeleteCategory"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:text="@string/delete_category"
+      app:layout_constraintTop_toBottomOf="@id/btnAddCategory"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      android:layout_marginTop="16dp"/>
+
   <!-- Edit Questions Button -->
   <Button
       android:id="@+id/btnEditQuestion"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
       android:text="@string/edit_questions"
-      app:layout_constraintTop_toBottomOf="@id/btnAddCategory"
+      app:layout_constraintTop_toBottomOf="@id/btnDeleteCategory"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       android:layout_marginTop="16dp"/>
@@ -98,7 +108,7 @@
 
       <include
           android:id="@+id/layoutEditCategories"
-          layout="@layout/layout_edit_categories"
+          layout="@layout/layout_delete_catagories"
           android:visibility="gone" />
 
     </LinearLayout>

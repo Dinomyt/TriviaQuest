@@ -53,4 +53,6 @@
     <string name="edit_question">Edit Question</string>
     <string name="edit_category_name">Edit Category Name</string>
     <string name="return_to_home">Return to Home</string>
+    <string name="delete_category">Delete Category</string>
+    <string name="confirm_delete_category">Confirm Delete Category</string>
 </resources>

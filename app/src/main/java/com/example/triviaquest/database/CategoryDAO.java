@@ -36,4 +36,9 @@ public interface CategoryDAO {
     @Update
     void update(Category category);
 
+    @Delete
+    void deleteCategory(Category category);
+
+    @Query("DELETE FROM category WHERE categoryId = :categoryId")
+    void deleteCategoryById(int categoryId);
 }

@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="16dp">
 
-    <!-- Select Question -->
+    <!-- Select Question (Spinner) -->
     <Spinner
         android:id="@+id/spinnerSelectQuestion"
         android:layout_width="0dp"
@@ -14,7 +14,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- Question Text -->
+    <!-- Question Text (EditText) -->
     <EditText
         android:id="@+id/editTextEditQuestion"
         android:layout_width="0dp"
@@ -25,7 +25,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- Answer 1 -->
+    <!-- Answer 1 (EditText) -->
     <EditText
         android:id="@+id/editTextEditAnswer1"
         android:layout_width="0dp"
@@ -36,7 +36,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- Answer 2 -->
+    <!-- Answer 2 (EditText) -->
     <EditText
         android:id="@+id/editTextEditAnswer2"
         android:layout_width="0dp"
@@ -47,7 +47,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- Answer 3 -->
+    <!-- Answer 3 (EditText) -->
     <EditText
         android:id="@+id/editTextEditAnswer3"
         android:layout_width="0dp"
@@ -58,7 +58,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- Answer 4 -->
+    <!-- Answer 4 (EditText) -->
     <EditText
         android:id="@+id/editTextEditAnswer4"
         android:layout_width="0dp"
@@ -69,7 +69,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- Correct Answer -->
+    <!-- Correct Answer (Spinner) -->
     <Spinner
         android:id="@+id/spinnerEditCorrectAnswer"
         android:layout_width="0dp"
@@ -78,9 +78,10 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- Submit Button -->
+    <!-- Submit Button (Save Changes) -->
     <Button
         android:id="@+id/btnSaveEditedQuestion"
+        android:onClick="onSubmitEditQuestion"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/save_changes"
