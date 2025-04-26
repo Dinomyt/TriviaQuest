@@ -149,4 +149,10 @@ public class TriviaQuestionsRepository {
          return categoryDAO.getTwoMostRecent();
     }
 
+    public void insertCategory(Category newCategory) {
+        // You may want to do this operation on a background thread to prevent UI blocking
+        new Thread(() -> {
+            categoryDAO.insert(newCategory); // This assumes you have an insert method in CategoryDao
+        }).start();
+    }
 }
