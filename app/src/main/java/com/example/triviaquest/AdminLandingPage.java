@@ -11,18 +11,17 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class AdminLandingPage extends AppCompatActivity {
 
+    private View layoutAddQuestion, layoutAddCategory, layoutEditQuestions, layoutEditCategories;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        // Set content view first
         setContentView(R.layout.activity_admin_landing_page);
 
         // Check if the user is admin
         SharedPreferences prefs = getSharedPreferences("TriviaPrefs", MODE_PRIVATE);
         boolean isAdmin = prefs.getBoolean("isAdmin", false);
 
-        // If not admin, show a toast and finish the activity
         if (!isAdmin) {
             Toast.makeText(this, "Access Denied. Admins Only.", Toast.LENGTH_SHORT).show();
             finish();
@@ -35,39 +34,26 @@ public class AdminLandingPage extends AppCompatActivity {
         Button btnEditQuestion = findViewById(R.id.btnEditQuestion);
         Button btnEditCategory = findViewById(R.id.btnEditCategory);
 
-        // The container for the dynamic sections
-        LinearLayout dynamicSectionContainer = findViewById(R.id.dynamicSectionContainer);
+        // Initialize layouts
+        layoutAddQuestion = findViewById(R.id.layoutAddQuestion);
+        layoutAddCategory = findViewById(R.id.layoutAddCategory);
+        layoutEditQuestions = findViewById(R.id.layoutEditQuestions);
+        layoutEditCategories = findViewById(R.id.layoutEditCategories);
 
-        // Helper method to switch visibility of sections
-        View[] allLayouts = {
-                findViewById(R.id.layoutAddQuestion),
-                findViewById(R.id.layoutAddCategory),
-                findViewById(R.id.layoutEditQuestions),
-                findViewById(R.id.layoutEditCategories)
-        };
+        View[] allLayouts = {layoutAddQuestion, layoutAddCategory, layoutEditQuestions, layoutEditCategories};
 
-        // Set listeners for each button to make the corresponding layout visible
-        btnAddQuestion.setOnClickListener(v -> setVisibleSection(R.layout.layout_add_question, dynamicSectionContainer, allLayouts));
-        btnAddCategory.setOnClickListener(v -> setVisibleSection(R.layout.layout_add_category, dynamicSectionContainer, allLayouts));
-        btnEditQuestion.setOnClickListener(v -> setVisibleSection(R.layout.layout_edit_questions, dynamicSectionContainer, allLayouts));
-        btnEditCategory.setOnClickListener(v -> setVisibleSection(R.layout.layout_edit_categories, dynamicSectionContainer, allLayouts));
+        // Button click listeners
+        btnAddQuestion.setOnClickListener(v -> setVisibleSection(layoutAddQuestion, allLayouts));
+        btnAddCategory.setOnClickListener(v -> setVisibleSection(layoutAddCategory, allLayouts));
+        btnEditQuestion.setOnClickListener(v -> setVisibleSection(layoutEditQuestions, allLayouts));
+        btnEditCategory.setOnClickListener(v -> setVisibleSection(layoutEditCategories, allLayouts));
     }
 
-    // Helper method to show the selected layout and hide others
-    private void setVisibleSection(int layoutResId, LinearLayout container, View[] allLayouts) {
-        // Remove all previous views
-        container.removeAllViews();
-
-        // Inflate the selected layout and add it to the container
-        View layout = getLayoutInflater().inflate(layoutResId, container, false);
-        container.addView(layout);
-
-        // Hide all other layouts (if any)
-        for (View v : allLayouts) {
-            v.setVisibility(View.GONE);
+    private void setVisibleSection(View visibleLayout, View[] allLayouts) {
+        for (View layout : allLayouts) {
+            layout.setVisibility(View.GONE);
         }
-
-        // Make the selected layout visible
-        layout.setVisibility(View.VISIBLE);
+        visibleLayout.setVisibility(View.VISIBLE);
     }
 }
+
