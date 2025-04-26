@@ -87,6 +87,26 @@ public class DashboardActivity extends AppCompatActivity {
             }
         });
 
+        Button adminButton = findViewById(R.id.adminLandingPageButton);
+
+// Get user info
+        userId = getSharedPreferences("TriviaPrefs", MODE_PRIVATE).getInt("userId", -1);
+
+        if (userId != -1) {
+            TriviaQuestDatabase db = TriviaQuestDatabase.getDatabase(this);
+            db.userDAO().getUserByUserId(userId).observe(this, user -> {
+                if (user != null && user.isAdmin()) { // Assuming you have a isAdmin() field
+                    adminButton.setVisibility(View.VISIBLE); // Show only if admin
+                }
+            });
+        }
+
+// Set what happens when admin clicks the button
+        adminButton.setOnClickListener(v -> {
+            Intent intent = new Intent(DashboardActivity.this, AdminLandingPage.class);
+            startActivity(intent);
+        });
+
     }
 
     @Override
