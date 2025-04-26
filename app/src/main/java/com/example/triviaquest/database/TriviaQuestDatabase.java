@@ -17,6 +17,7 @@ import com.example.triviaquest.database.entities.User;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+
 @Database(
         entities = {
                 TriviaQuestions.class,
