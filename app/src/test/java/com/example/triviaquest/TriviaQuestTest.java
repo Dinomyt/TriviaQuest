@@ -6,6 +6,7 @@ import static org.junit.Assert.*;
 
 import com.example.triviaquest.database.entities.Category;
 import com.example.triviaquest.database.entities.TriviaQuestions;
+import com.example.triviaquest.database.entities.User;
 
 public class TriviaQuestTest {
 
@@ -72,4 +73,13 @@ public class TriviaQuestTest {
         assertFalse(q1.equals(null));
         assertFalse(q1.equals("foo"));
     }
+
+    @Test
+    public void testRegisterUser() {
+        User testUser = new User("testUsername", "testPassword");
+        assertEquals("testUsername", testUser.getUsername());
+        assertEquals("testPassword", testUser.getPassword());
+        assertFalse(testUser.isAdmin());
+    }
+
 }
