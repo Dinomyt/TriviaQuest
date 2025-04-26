@@ -34,7 +34,6 @@
     <string name="DashboardActivityClassWelcome">"Welcome, "</string>
     <string name="leaderboard">Leaderboard</string>
     <string name="leaderboardButton">Leaderboard</string>
-    <string name="just_out_of_the_trivia_oven">Just Out of the Trivia Oven:</string>
     <string name="add_question">Add Question</string>
     <string name="add_category">Add Category</string>
     <string name="edit_questions">Edit Questions</string>
