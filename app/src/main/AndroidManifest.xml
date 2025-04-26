@@ -18,7 +18,10 @@
             android:name=".AdminLandingPage"
             android:exported="false" />
         <activity
-            android:name=".Quiz"
+            android:name=".QuizResultsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".QuizActivity"
             android:exported="false" />
         <activity
             android:name=".LoginActivity"

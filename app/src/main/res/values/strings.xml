@@ -55,4 +55,8 @@
     <string name="return_to_home">Return to Home</string>
     <string name="delete_category">Delete Category</string>
     <string name="confirm_delete_category">Confirm Delete Category</string>
+    <string name="score_heading">Score</string>
+    <string name="user_heading">User</string>
+    <string name="our_two_newest_categories">✨ Our two newest categories ✨</string>
+    <string name="just_out_of_the_trivia_oven">🥧 Just Out of the Trivia Oven! 🥧</string>
 </resources>
